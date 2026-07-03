@@ -23,4 +23,15 @@ const rateLimitConfig = {
   authMax: parseInt(process.env.AUTH_RATE_LIMIT_MAX, 10) || 10,
 };
 
-module.exports = { appConfig, authConfig, rateLimitConfig };
+const oauthConfig = {
+  // Auth0 brokers both Google and GitHub social login — no separate
+  // Google Cloud / GitHub Developer OAuth apps needed.
+  auth0: {
+    domain: process.env.AUTH0_DOMAIN,
+    clientId: process.env.AUTH0_CLIENT_ID,
+    clientSecret: process.env.AUTH0_CLIENT_SECRET,
+    callbackUrl: process.env.AUTH0_CALLBACK_URL || `${appConfig.appUrl}${appConfig.apiPrefix}/auth/auth0/callback`,
+  },
+};
+
+module.exports = { appConfig, authConfig, rateLimitConfig, oauthConfig };

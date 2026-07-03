@@ -84,4 +84,4 @@ const updatePreferences = async (userId, body) => {
   return user.toPublic();
 };
 
-module.exports = { register, login, refresh, changePassword, updatePreferences };
+module.exports = { register, login, refresh, changePassword, updatePreferences, generateTokenPair };
