@@ -4,6 +4,9 @@ AI-powered Meeting Intelligence Platform — Node.js · Express · MongoDB · Ge
 
 Hintro transcribes, summarizes, and extracts decisions and action items from meetings automatically, with citation-backed AI insights, automated reminders, and a stateless JWT auth layer that supports both email/password and Google (via Auth0) sign-in.
 
+**Live API:** https://hintro-backend-lv7t.onrender.com
+**Live app (frontend):** https://hintro-fronend-b2iz.vercel.app/
+
 ## Architecture (LLD)
 
 <table>
