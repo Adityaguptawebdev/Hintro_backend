@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 620" font-family="Segoe UI, Helvetica, Arial, sans-serif">
+  <defs>
+    <marker id="arrow2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#f97316"/>
+    </marker>
+  </defs>
+
+  <rect width="900" height="620" fill="#0d0d0d"/>
+  <text x="450" y="34" text-anchor="middle" fill="#f5f5f5" font-size="20" font-weight="700">Google Sign-In — Sequence (via Auth0)</text>
+
+  <!-- Lifelines -->
+  <g font-size="12.5" fill="#f5f5f5" font-weight="600">
+    <rect x="20"  y="56" width="140" height="40" rx="8" fill="#1c1c1e" stroke="#f97316"/>
+    <text x="90" y="81" text-anchor="middle">Frontend (SPA)</text>
+
+    <rect x="210" y="56" width="140" height="40" rx="8" fill="#1c1c1e" stroke="#3b82f6"/>
+    <text x="280" y="81" text-anchor="middle">Backend API</text>
+
+    <rect x="400" y="56" width="140" height="40" rx="8" fill="#1c1c1e" stroke="#a78bfa"/>
+    <text x="470" y="81" text-anchor="middle">Auth0</text>
+
+    <rect x="590" y="56" width="140" height="40" rx="8" fill="#1c1c1e" stroke="#22d3ee"/>
+    <text x="660" y="81" text-anchor="middle">Google</text>
+
+    <rect x="780" y="56" width="100" height="40" rx="8" fill="#1c1c1e" stroke="#00bc7d"/>
+    <text x="830" y="81" text-anchor="middle">MongoDB</text>
+  </g>
+
+  <!-- lifelines vertical -->
+  <line x1="90"  y1="96" x2="90"  y2="580" stroke="#3f3f46" stroke-dasharray="3 3"/>
+  <line x1="280" y1="96" x2="280" y2="580" stroke="#3f3f46" stroke-dasharray="3 3"/>
+  <line x1="470" y1="96" x2="470" y2="580" stroke="#3f3f46" stroke-dasharray="3 3"/>
+  <line x1="660" y1="96" x2="660" y2="580" stroke="#3f3f46" stroke-dasharray="3 3"/>
+  <line x1="830" y1="96" x2="830" y2="580" stroke="#3f3f46" stroke-dasharray="3 3"/>
+
+  <!-- messages -->
+  <g font-size="11.5" fill="#e5e5e5">
+    <line x1="90" y1="130" x2="280" y2="130" stroke="#f97316" stroke-width="1.6" marker-end="url(#arrow2)"/>
+    <text x="185" y="122" text-anchor="middle">1. click "Continue with Google"</text>
+    <text x="90" y="144" fill="#9f9fa9" font-size="10.5">GET /api/v1/auth/google</text>
+
+    <line x1="280" y1="168" x2="470" y2="168" stroke="#f97316" stroke-width="1.6" marker-end="url(#arrow2)"/>
+    <text x="375" y="160" text-anchor="middle">2. 302 → /authorize?connection=google-oauth2</text>
+
+    <line x1="470" y1="206" x2="660" y2="206" stroke="#f97316" stroke-width="1.6" marker-end="url(#arrow2)"/>
+    <text x="565" y="198" text-anchor="middle">3. redirect to Google consent screen</text>
+
+    <line x1="660" y1="244" x2="470" y2="244" stroke="#00bc7d" stroke-width="1.6" marker-end="url(#arrow2)"/>
+    <text x="565" y="236" text-anchor="middle">4. user approves — profile returned</text>
+
+    <line x1="470" y1="282" x2="280" y2="282" stroke="#00bc7d" stroke-width="1.6" marker-end="url(#arrow2)"/>
+    <text x="375" y="274" text-anchor="middle">5. 302 → /auth/auth0/callback?code=...</text>
+
+    <line x1="280" y1="320" x2="470" y2="320" stroke="#f97316" stroke-width="1.6" marker-end="url(#arrow2)"/>
+    <text x="375" y="312" text-anchor="middle">6. POST /oauth/token (exchange code)</text>
+
+    <line x1="470" y1="358" x2="280" y2="358" stroke="#00bc7d" stroke-width="1.6" marker-end="url(#arrow2)"/>
+    <text x="375" y="350" text-anchor="middle">7. access_token</text>
+
+    <line x1="280" y1="396" x2="470" y2="396" stroke="#f97316" stroke-width="1.6" marker-end="url(#arrow2)"/>
+    <text x="375" y="388" text-anchor="middle">8. GET /userinfo</text>
+
+    <line x1="470" y1="434" x2="280" y2="434" stroke="#00bc7d" stroke-width="1.6" marker-end="url(#arrow2)"/>
+    <text x="375" y="426" text-anchor="middle">9. { sub, email, name, picture }</text>
+
+    <line x1="280" y1="472" x2="830" y2="472" stroke="#f97316" stroke-width="1.6" marker-end="url(#arrow2)"/>
+    <text x="555" y="464" text-anchor="middle">10. find-or-create User by auth0Id / email</text>
+
+    <line x1="90" y1="518" x2="280" y2="518" stroke="#3f3f46" stroke-width="1.2"/>
+    <line x1="280" y1="518" x2="90" y2="518" stroke="#f97316" stroke-width="1.6" marker-end="url(#arrow2)"/>
+    <text x="185" y="510" text-anchor="middle">11. 302 → /oauth/callback?accessToken&amp;refreshToken</text>
+
+    <text x="185" y="546" text-anchor="middle" fill="#9f9fa9">12. frontend stores JWT pair — same session</text>
+    <text x="185" y="562" text-anchor="middle" fill="#9f9fa9">contract as email/password login</text>
+  </g>
+</svg>
