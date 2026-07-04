@@ -1,4 +1,5 @@
 const asyncHandler = require('../../../utils/asyncHandler');
+const logger = require('../../../utils/logger');
 const { appConfig, oauthConfig } = require('../../../config/app.config');
 const oauthService = require('./oauth.service');
 const { generateTokenPair } = require('./auth.service');
@@ -36,7 +37,8 @@ const auth0Callback = asyncHandler(async (req, res) => {
     const user = await oauthService.findOrCreateAuth0User(profile);
     await repo.updateById(user._id, { lastLoginAt: new Date() });
     res.redirect(buildSuccessRedirect(generateTokenPair(user._id)));
-  } catch {
+  } catch (err) {
+    logger.error('Auth0 callback failed', { message: err.message, stack: err.stack });
     res.redirect(buildErrorRedirect('Sign-in failed'));
   }
 });
