@@ -17,7 +17,10 @@ const exchangeAuth0Code = async (code) => {
       redirect_uri: callbackUrl,
     }),
   });
-  if (!tokenRes.ok) throw ApiError.unauthorized('Auth0 authentication failed');
+  if (!tokenRes.ok) {
+    const body = await tokenRes.text().catch(() => '');
+    throw ApiError.unauthorized(`Auth0 token exchange failed (${tokenRes.status}): ${body}`);
+  }
   const { access_token: accessToken } = await tokenRes.json();
 
   const profileRes = await fetch(`https://${domain}/userinfo`, {
